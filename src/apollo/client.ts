@@ -1,7 +1,10 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { ApolloClient, InMemoryCache,HttpLink} from '@apollo/client'
 
+const link = new HttpLink({
+    uri: process.env.NEXT_PUBLIC_BACKEND_URI,
+    credentials: 'include',
+  })
 export const client = new ApolloClient({
-    uri: process.env.NEXT_PUBLIC_BACKEND_URL,
     cache: new InMemoryCache({
         typePolicies: {
             User: {
@@ -24,5 +27,5 @@ export const client = new ApolloClient({
             }
         }
     }),
-    credentials: 'include'
+    link,
 });
